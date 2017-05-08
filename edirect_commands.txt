@@ -1,0 +1,76 @@
+Messing with edirect commands to get the fasta sequences of the query
+
+#if you use docsum for format for efetch
+DocumentSummary
+  Id
+  Name
+  Description
+  Status
+  CurrentID
+  Chromosome
+  GeneticSource
+  MapLocation
+  OtherAliases
+  OtherDesignations
+  NomenclatureSymbol
+  NomenclatureName
+  NomenclatureStatus
+  Mim
+  GenomicInfo
+    GenomicInfoType
+      ChrLoc
+      ChrAccVer
+      ChrStart
+      ChrStop
+      ExonCount
+  GeneWeight
+  Summary
+  ChrSort
+  ChrStart
+  Organism
+    ScientificName
+    CommonName
+    TaxID
+  LocationHist
+    LocationHistType
+      AnnotationRelease
+      AssemblyAccVer
+      ChrAccVer
+      ChrStart
+      ChrStop
+    LocationHistType
+      AnnotationRelease
+      AssemblyAccVer
+      ChrAccVer
+      ChrStart
+      ChrStop
+#if you use xml as the format in efetch, this is the pattern for xtract     
+Entrezgene
+
+#will return the element locus in an Entrezgene 
+Entrezgene_locus
+
+#will return the accession of the Entrezgene but is missing the version
+Gene-commentary_accession
+
+#will return the element locus in an Entrezgene 
+Gene-ref_locus
+
+#command to search the entire gene database for chemosensory proteins in apis mellifera and return accession number #returns a lot more than the accession number
+esearch -db gene -query "(chemosensory protein[PROT]) AND (apis mellifera [ORGN])" | efetch -format xml|xtract -pattern Entrezgene -element Gene-commentary_accession
+
+#command to search gene database for for chemosensory in apis mellifera and cuts out the accession number, but is missing the version
+esearch -db gene -query "(chemosensory protein[PROT]) AND (apis mellifera [ORGN])" | efetch -format fasta | grep "NC*"|awk '{print $4}' >> chemosensory_protein_accession_numbers.txt
+
+#this will return the fasta of the transcript they way it is supposed to
+esearch -db nuccore -query "NM_001011583.2" | efetch -format fasta
+
+#this will return the accession number and the version, unfortunately not together.
+esearch -db gene -query "(chemosensory protein[PROT]) AND (apis mellifera [ORGN])" | efetch -format xml| xtract -pattern Entrezgene -element Gene-commentary_accession Gene-commentary_version >> accessions_with_versions
+
+
+#####
+#this will return the accession number and the version, unfortunately not together.
+esearch -db gene -query "(chemosensory protein[PROT]) AND (apis mellifera [ORGN])" | efetch -format xml| xtract -pattern Entrezgene -element Gene-commentary_accession >> chemosensory_proteins_apis_mellifera_accessions_with_versions.txt
+
+esearch -db gene -query "(chemosensory protein[PROT]) AND (apis mellifera [ORGN])" | efetch -format xml| xtract -pattern Entrezgene -element Gene-commentary_version >> chemosensory_proteins_apis_mellifera_accessions_with_versions.txt
