@@ -1,13 +1,12 @@
 ## Identification of fig wasp olfactory receptor proteins
-1. Gather hymenopteran sequences from NCBI and literature
+1. Gather hymenopteran sequences from NCBI and literature. These are saved in hymenopteran OR protein sequences and then combined as hym_OR_prot.fasta in the sequence/ folder.
 
 ```
 cd sequences/
 find hymenopteran_OR_protein_sequences/ -maxdepth 1| grep “_OR_prot.fasta”|while read fn; do cat "$fn" >> hym_OR_prot.fasta; done
-
 ```
 
-2. Filter to make sure there are no illegal characters.
+2. Filter to make sure there are no illegal characters. 
 
 ```
 python ../scripts/allowed_letters.py hym_OR_prot.fasta filtered_hym.fasta
@@ -23,8 +22,7 @@ python ../scripts/filter_reads_by_size.py filtered_hym.fasta filtered_by_size.fa
 
 4. Download the 7tm_6 Pfam family from the Pfam website. This contains 10148 protein sequences  
 http://pfam.xfam.org/family/7tm_6#tabview=tab1
-
-
+ 
 5. Remove duplicates from 10148 sequences
 
 ```
@@ -48,7 +46,6 @@ sbatch combined_hmmsearch_cmds.sh
 
 ```
  tail -n+15 hmmsearch_hym_pfam_7tm_6.output| tr -s ' '| sed 's/ /\t/g'| awk -F '\t' '{if ($9 == 1) print $0}' > hym_7tm_6_N1.out
-
 ```
 
 9. Now that we can identify which hymenopteran OR sequences contain one 7tm_6 motif we can match and pull out the fasta sequences of interest
@@ -66,3 +63,8 @@ cd exonerate/
 sbatch exonerate_obtusifolia_cmd.sh
 ```
 
+11. Double check file endings
+
+12. Taking Exonerate output, genome of interest and the exonerate input fasta sequences and using InsectOR to get consensus sequences.
+
+http://caps.ncbs.res.in/cgi-bin/gws_ors/load_form.py?module_name=gws_search&module_desc=Search%20for%20OR%20genes%20in%20a%20genome
