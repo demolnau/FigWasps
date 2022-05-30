@@ -1,7 +1,0 @@
-#if I run a batch search on this then there is just too many to search for some reason even though the version is listed
-NC_007074.3
-NC_007077.3
-NC_007070.3
-NC_007074.3
-NC_007071.3
-NC_007070.3
