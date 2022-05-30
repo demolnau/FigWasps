@@ -3,7 +3,7 @@
 
 ```
 cd sequences/
-find hymenopteran_OR_protein_sequences/ -maxdepth 1| grep -v “_OR_prot.fasta”|while read fn; do cat "$fn" >> hym_OR_prot.fasta; done
+find hymenopteran_OR_protein_sequences/ -maxdepth 1| grep “_OR_prot.fasta”|while read fn; do cat "$fn" >> hym_OR_prot.fasta; done
 
 ```
 
