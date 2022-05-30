@@ -55,7 +55,7 @@ sbatch combined_hmmsearch_cmds.sh
 
 ```
 cd ../
-python scripts/match_hmmsearch_outputs.py sequences/filtered_by_size.fasta sequences sequences/hym_7tm_6_N1.out sequences/exonerate_input.fasta
+python scripts/match_hmmsearch_outputs.py sequences/filtered_by_size.fasta hmmsearch/hym_7tm_6_N1.out sequences/exonerate_input.fasta
 ```
 
 10. Running Exonerate to idenitfy OR sequences in the genome of interest.
